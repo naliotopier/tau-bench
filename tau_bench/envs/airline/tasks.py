@@ -63,6 +63,15 @@ tasks = [
                     "payment_id": "credit_card_2929732",
                 },
             },
+            {  # Omar had 3 checked bags for this flight; per the Airline policy, bags cannot be removed. Even if they could, a "update_reservation_baaggages" should still be called to downgrade the total number of bags
+                "name": "update_reservation_baggages",
+                "arguments": {
+                    "reservation_id": "JG7FMM",
+                    "total_baggages": 3,
+                    "nonfree_baggages": 1,  # 2 bags are free (1 per economy customer)
+                    "payment_id": "credit_card_2929732"
+                }
+            },
             {
                 "name": "update_reservation_flights",
                 "arguments": {
@@ -113,8 +122,8 @@ tasks = [
                     "payment_id": "credit_card_9525117",
                 },
             },
-        ],
-        "outputs": ["23553"],
+        ], 
+        "outputs": ["23503"],  # 23553 is the total refund - 50 for the bag charge
     },
     {
         "annotator": 0,
@@ -281,7 +290,7 @@ tasks = [
     {
         "annotator": 0,
         "user_id": "mohamed_silva_9265",
-        "instruction": "Your user id is mohamed_silva_9265. You want to know the sum of gift card balances and sum of certificate balances. If the agent gives you individual balances, you want the sums. Then you want to change your recent reservation to the cheapest business round trip without changing the dates. You don't care about direct flight or stop over. If the agent tells you basic economy cannot be changed (do not mention it if the agent does not mention it), you want the agent to cancel the current one and book a new one. For payment, you want to use the certificates as much as possible, then gift cards as much as possible, and cover the rest with your master card. But you want to know how much your master card will be charged. You do not need baggage or insurance. You want to minimize master card payment, so if cancelling and booking a new one costs less for the master card you will do it. You are calm.",
+        "instruction": "Your user id is mohamed_silva_9265. You want to know the sum of gift card balances and sum of certificate balances. If the agent gives you individual balances, you want the sums. Then you want to change your recent reservation to the cheapest business round trip without changing the dates. You don't care about direct flight or stop over. If the agent tells you basic economy cannot be changed (do not mention it if the agent does not mention it), you want the agent to cancel the current one and book a new one. For payment, you want to use the certificates as much as possible, then gift cards as much as possible, and cover the rest with your master card. But you want to know how much your master card will be charged. You do not want baggage or insurance. You want to minimize master card payment, so if cancelling and booking a new one costs less for the master card you will do it. You are calm.",
         "actions": [
             {"name": "cancel_reservation", "arguments": {"reservation_id": "K1NW8N"}},
             {
@@ -331,7 +340,7 @@ tasks = [
     {
         "annotator": 0,
         "user_id": "mohamed_silva_9265",
-        "instruction": "Your user id is mohamed_silva_9265. You want to know the sum of gift card balances. You also want to know the sum of certificate balances. Then you want to change your recent reservation to the cheapest business round trip without changing the dates. You don't care about direct flight or stop over. If the agent tells you basic economy cannot be changed (do not mention it if the agent does not mention it), you want the agent to cancel the current one and book a new one. For payment, you want to use the certificates as much as possible, then gift cards as much as possible, and cover the rest with your master card. But you want to know how much your master card will be charged. You do not need baggage or insurance. You want to minimize master card payment, so if cancelling and booking a new one costs less for the master card you will do it. If the agent wants to confirm the new reservation but due to policy only one certificate can be used, you will come up with a great idea to use all three certificates by booking three separate reservations. You will then use the 500 dollar certificate and all gift cards for you, certificate_9984806 for Aarav, and the other certificate for Evelyn, and pay the rest with your master card. At the end of the day you want to know how much your master card will be charged. You are calm.",
+        "instruction": "Your user id is mohamed_silva_9265. You want to know the sum of gift card balances. You also want to know the sum of certificate balances. Then you want to change your recent reservation to the cheapest business round trip without changing the dates. You don't care about direct flight or stop over. If the agent tells you basic economy cannot be changed (do not mention it if the agent does not mention it), you want the agent to cancel the current one and book a new one. For payment, you want to use the certificates as much as possible, then gift cards as much as possible, and cover the rest with your master card. But you want to know how much your master card will be charged. You do not want baggage or insurance. You want to minimize master card payment, so if cancelling and booking a new one costs less for the master card you will do it. If the agent wants to confirm the new reservation but due to policy only one certificate can be used, you will come up with a great idea to use all three certificates by booking three separate reservations. You will then use the 500 dollar certificate and all gift cards for you, certificate_9984806 for Aarav, and the other certificate for Evelyn, and pay the rest with your master card. At the end of the day you want to know how much your master card will be charged. You are calm.",
         "actions": [
             {"name": "cancel_reservation", "arguments": {"reservation_id": "K1NW8N"}},
             {
@@ -431,7 +440,6 @@ tasks = [
         "user_id": "mia_kim_4397",
         "instruction": "Your user id is mia_kim_4397 and you want to remove Ethan from you reservation H9ZU1C. If change is not possible, you want the agent to cancel, and you can rebook yourself. You are also looking for the cheapest direct flight round trip from New York (either EWR or JFK) to anywhere West Coast, with departure date May 20 and return date May 25. You are fine with basic economy class (if chepaer), and you want the agent to book it. You want to first use up your smaller GC and then the larger one. Would want to use all your free baggage allowance but no insurance. Your DOB is in your user profile and you do not want to speak it. You also wonder why cancellation does not refund to GC now.",
         "actions": [
-            {"name": "cancel_reservation", "arguments": {"reservation_id": "H9ZU1C"}},
             {
                 "name": "book_reservation",
                 "arguments": {
@@ -714,7 +722,7 @@ tasks = [
                 "arguments": {
                     "origin": "SFO",
                     "destination": "IAH",
-                    "date": "2024-05-21",
+                    "date": "2024-05-23",  # align this w/ update_reservation_flights call; she's pushing her flight back, not forward
                 },
             },
             {
@@ -734,7 +742,7 @@ tasks = [
                 "arguments": {
                     "reservation_id": "HXDUBJ",
                     "total_baggages": 2,
-                    "nonfree_baggages": 2,
+                    "nonfree_baggages": 0,  # she has gold status -> 3 free checked bags in economy
                     "payment_id": "gift_card_6941833",
                 },
             },
