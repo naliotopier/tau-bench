@@ -17,6 +17,8 @@ class FewShotToolCallingAgent(Agent):
         wiki: str,
         model: str,
         provider: str,
+        api_key: str,
+        api_base: str,
         few_shot_displays: List[str],
         temperature: float = 0.0,
         num_few_shots: int = 5,
@@ -25,6 +27,8 @@ class FewShotToolCallingAgent(Agent):
         self.wiki = wiki
         self.model = model
         self.provider = provider
+        self.api_key = api_key
+        self.api_base = api_base
         if len(few_shot_displays) == 0:
             raise ValueError("Few shot displays are empty")
         elif len(few_shot_displays) < num_few_shots:
@@ -51,6 +55,8 @@ class FewShotToolCallingAgent(Agent):
                 messages=messages,
                 model=self.model,
                 custom_llm_provider=self.provider,
+                api_key=self.api_key,
+                api_base=self.api_base,
                 tools=self.tools_info,
                 temperature=self.temperature,
             )
